@@ -10,7 +10,7 @@ require('dotenv').config();
 
 const app = express();
 
-app.use(cors());
+app.use(cors({ origin: 'https://algebra-adventure.vercel.app'}));
 app.use(express.json());
 
 // Health check endpoint
