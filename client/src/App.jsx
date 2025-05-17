@@ -18,7 +18,6 @@ function App() {
   const [theme, setTheme] = useState('Adventure'); // Default theme
 
   useEffect(() => {
-    console.log('API_BASE_URL:', API_BASE_URL); // Debug API URL
     const token = localStorage.getItem('token');
     if (token) {
       axios
@@ -30,7 +29,7 @@ function App() {
           setTheme(res.data.user.preferredTheme || 'Adventure');
         })
         .catch((err) => {
-          console.error('Verify token error:', err.response?.data?.message || err.message);
+          console.error('Verify token error:', err);
           localStorage.removeItem('token');
         });
     }

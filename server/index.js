@@ -10,58 +10,27 @@ require('dotenv').config();
 
 const app = express();
 
-// Log server startup
-console.log('Starting server...');
-
-// Middleware
-app.use(cors({
-  origin: '*', // Allow all origins for debugging; revert to specific origins in production
-  credentials: true,
-}));
+app.use(cors({ origin: 'https://algebra-adventure.vercel.app',  credentials: true}));
 app.use(express.json());
-
-// Log middleware setup
-console.log('Middleware setup: CORS and JSON parsing enabled');
 
 // Health check endpoint
 app.get('/health', (req, res) => {
-  console.log('Health endpoint hit');
   res.json({ status: 'OK', message: 'Server is running for STEMZap with dynamic puzzles!' });
 });
 
 // Routes
-console.log('Mounting routes...');
-try {
-  app.use('/api/auth', authRoutes);
-  console.log('Auth routes mounted at /api/auth');
-  app.use('/api/game', gameRoutes);
-  console.log('Game routes mounted at /api/game');
-  app.use('/api/tutor', tutorRoutes);
-  console.log('Tutor routes mounted at /api/tutor');
-} catch (err) {
-  console.error('Error mounting routes:', err.message, err.stack);
-}
-
-// Catch-all route for debugging 404s
-app.use((req, res, next) => {
-  console.log(`Unrecognized route: ${req.method} ${req.originalUrl}`);
-  res.status(404).json({ message: 'Route not found' });
-});
-
-// Error-handling middleware
-app.use((err, req, res, next) => {
-  console.error('Server error:', err.message, err.stack);
-  res.status(500).json({ message: 'Internal server error' });
-});
+app.use('/api/auth', authRoutes);
+app.use('/api/game', gameRoutes);
+app.use('/api/tutor', tutorRoutes);
 
 // Seed puzzles if collection is empty or outdated
 const seedPuzzles = async () => {
   try {
     const puzzleCount = await Puzzle.countDocuments();
     console.log(`Current puzzle count: ${puzzleCount}`);
-    if (puzzleCount < 75) {
+    if (puzzleCount < 75) { // Ensure at least 75 puzzles
       console.log('Seeding initial puzzles...');
-      await Puzzle.deleteMany({});
+      await Puzzle.deleteMany({}); // Clear existing puzzles to avoid duplicates
       const initialPuzzles = [
         // Linear Equations (25 puzzles)
         {
@@ -911,7 +880,7 @@ const seedPuzzles = async () => {
           topic: 'Programming',
           theme: 'Adventure',
           language: 'python',
-          educationLevel: ['(primary', 'high'],
+          educationLevel: ['primary', 'high'],
           hint: 'Check if the length of the list is 0.',
         },
         {
@@ -1000,9 +969,8 @@ const startServer = async () => {
     // Seed puzzles after connecting
     await seedPuzzles();
 
-    const port = process.env.PORT || 5000;
-    app.listen(port, () => {
-      console.log(`Server running on port ${port}`);
+    app.listen(process.env.PORT || 5000, () => {
+      console.log(`Server running on port ${process.env.PORT || 5000}`);
     });
   } catch (err) {
     console.error('Failed to start server:', err.message, err.stack);
