@@ -10,7 +10,8 @@ import Leaderboard from './components/Leaderboard';
 import Tutor from './components/Tutor';
 import axios from 'axios';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+// Use the Render server URL for production
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://algebra-adventure.onrender.com';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -54,7 +55,6 @@ function App() {
           <Route path="/dashboard" element={user ? <Dashboard user={user} theme={theme} setTheme={setTheme} /> : <Navigate to="/login" />} />
           <Route path="/leaderboard" element={user ? <Leaderboard theme={theme} /> : <Navigate to="/login" />} />
           <Route path="/tutor" element={user ? <Tutor theme={theme} /> : <Navigate to="/login" />} />
-          <Route path="/" element={<Navigate to={user ? '/dashboard' : '/login'} />} />
         </Routes>
       </div>
     </Router>
