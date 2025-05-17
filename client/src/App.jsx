@@ -49,6 +49,7 @@ function App() {
       <div className={`min-h-screen theme-${theme.toLowerCase()}`}>
         <Navbar user={user} onLogout={handleLogout} theme={theme} />
         <Routes>
+          <Route path="/" element={user ? <Navigate to="/dashboard" /> : <Navigate to="/login" />} />
           <Route path="/login" element={user ? <Navigate to="/dashboard" /> : <Login setUser={setUser} />} />
           <Route path="/signup" element={user ? <Navigate to="/dashboard" /> : <Signup setUser={setUser} setTheme={setTheme} />} />
           <Route path="/game" element={user ? <Game user={user} theme={theme} /> : <Navigate to="/login" />} />
