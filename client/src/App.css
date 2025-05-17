@@ -1,0 +1,271 @@
+/* File Path: /client/src/App.css */
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Responsive padding for #root */
+@media (min-width: 640px) {
+  #root {
+    padding: 2rem;
+  }
+}
+@media (min-width: 768px) {
+  #root {
+    padding: 3rem;
+  }
+}
+@media (min-width: 1024px) {
+  #root {
+    padding: 4rem;
+  }
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 1.5em;
+}
+
+/* Responsive padding for .card */
+@media (min-width: 640px) {
+  .card {
+    padding: 2em;
+  }
+}
+@media (min-width: 768px) {
+  .card {
+    padding: 3em;
+  }
+}
+@media (min-width: 1024px) {
+  .card {
+    padding: 4em;
+  }
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+/* Additional styles for STEMZap */
+body {
+  color: #e2e8f0;
+  font-family: 'Courier New', Courier, monospace;
+  transition: background-color 0.3s ease;
+}
+
+/* Theme styles */
+body.theme-adventure {
+  background-color: #1a202c;
+}
+
+body.theme-space {
+  background: linear-gradient(135deg, #0d1b2a 0%, #1b263b 100%);
+  background-attachment: fixed;
+}
+
+body.theme-underwater {
+  background: linear-gradient(135deg, #0a3d62 0%, #3e92cc 100%);
+  background-attachment: fixed;
+}
+
+.btn {
+  transition: all 0.3s ease;
+  font-size: 0.875rem;
+  padding: 0.5rem 1rem;
+}
+
+/* Responsive button styles */
+@media (min-width: 640px) {
+  .btn {
+    font-size: 1rem;
+    padding: 0.75rem 1.5rem;
+  }
+}
+@media (min-width: 768px) {
+  .btn {
+    font-size: 1.125rem;
+    padding: 1rem 2rem;
+  }
+}
+@media (min-width: 1024px) {
+  .btn {
+    font-size: 1.25rem;
+  }
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.input {
+  transition: all 0.3s ease;
+  font-size: 0.875rem;
+  padding: 0.5rem;
+}
+
+/* Responsive input styles */
+@media (min-width: 640px) {
+  .input {
+    font-size: 1rem;
+    padding: 0.75rem;
+  }
+}
+@media (min-width: 768px) {
+  .input {
+    font-size: 1.125rem;
+    padding: 1rem;
+  }
+}
+@media (min-width: 1024px) {
+  .input {
+    font-size: 1.25rem;
+  }
+}
+
+.input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.3);
+}
+
+/* Responsive container widths with centering */
+.container {
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 640px) {
+  .container {
+    max-width: 640px;
+  }
+}
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+  }
+}
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
+  }
+}
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1280px;
+  }
+}
+
+/* Typography enhancements */
+h1,
+h2,
+h3 {
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+
+@media (min-width: 640px) {
+  h1,
+  h2,
+  h3 {
+    margin-bottom: 0.75rem;
+  }
+}
+@media (min-width: 768px) {
+  h1,
+  h2,
+  h3 {
+    margin-bottom: 1rem;
+  }
+}
+
+p,
+li {
+  line-height: 1.6;
+}
+
+/* Achievement popup styles */
+.achievement-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  text-align: center;
+  animation: confetti 1s ease-in-out;
+}
+
+@keyframes confetti {
+  0% { background: linear-gradient(135deg, #10b981, #059669); }
+  25% { background: linear-gradient(135deg, #ff6b6b, #feca57); }
+  50% { background: linear-gradient(135deg, #48dbfb, #1dd1a1); }
+  75% { background: linear-gradient(135deg, #ff9ff3, #feca57); }
+  100% { background: linear-gradient(135deg, #10b981, #059669); }
+}
+
+.achievement-popup h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.achievement-popup p {
+  font-size: 1.2rem;
+}
+
+/* Daily challenge highlight */
+.border-yellow-500 {
+  border-color: #facc15;
+}
+
+/* Motivational message styles */
+.bg-gradient-to-r.from-indigo-500.to-emerald-500 {
+  background: linear-gradient(to right, #6366f1, #10b981);
+}
+
+/* Share button styles */
+.btn.bg-indigo-600 {
+  background-color: #6366f1;
+}
+
+.btn.bg-indigo-600:hover {
+  background-color: #4f46e5;
+}
