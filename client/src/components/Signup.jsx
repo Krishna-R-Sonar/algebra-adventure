@@ -18,6 +18,7 @@ function Signup({ setUser }) {
     e.preventDefault();
     setError('');
     try {
+      console.log('Sending signup request:', { username, email, preferredCodingLanguage, educationLevel });
       const res = await axios.post('/api/auth/signup', {
         username,
         email,
@@ -25,13 +26,17 @@ function Signup({ setUser }) {
         preferredCodingLanguage,
         educationLevel,
       });
-      console.log('Signup response:', res.status, res.data); // Debug response
+      console.log('Signup response:', res.status, res.data);
       localStorage.setItem('token', res.data.token);
       setUser(res.data.user);
       navigate('/dashboard');
     } catch (err) {
-      console.error('Signup error:', err.response?.status, err.response?.data?.message || err.message);
-      setError(err.response?.data?.message || 'Signup failed. Please check your network and try again.');
+      console.error('Signup error:', {
+        status: err.response?.status,
+        data: err.response?.data,
+        message: err.message,
+      });
+      setError(err.response?.data?.message || `Signup failed: ${err.message}`);
     }
   }, [username, email, password, preferredCodingLanguage, educationLevel, navigate, setUser]);
 
