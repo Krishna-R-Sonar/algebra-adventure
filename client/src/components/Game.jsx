@@ -34,6 +34,7 @@ function Game({ user, theme }) {
       setHint('');
       localStorage.setItem('currentPuzzle', JSON.stringify(res.data));
     } catch (err) {
+      console.error('Fetch puzzle error:', err);
       setMessage(err.response?.data?.message || 'Failed to load puzzle. Try refreshing.');
     }
   };
@@ -46,7 +47,8 @@ function Game({ user, theme }) {
       setHint(res.data.hint);
       setShowHint(true);
     } catch (err) {
-      setMessage('Failed to load hint. Try again.');
+      console.error('Fetch hint error:', err);
+      setMessage('Failed to load hint. Try Ascertain your network connection and try again.');
     }
   };
 
@@ -82,6 +84,7 @@ function Game({ user, theme }) {
         setTimeout(fetchPuzzle, 1500);
       }
     } catch (err) {
+      console.error('Submit puzzle error:', err);
       setMessage('Error submitting answer. Try again.');
     }
   };
@@ -97,6 +100,7 @@ function Game({ user, theme }) {
         );
         alert('Thank you for your feedback!');
       } catch (err) {
+        console.error('Submit feedback error:', err);
         alert('Failed to submit feedback. Try again.');
       }
     }

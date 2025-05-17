@@ -28,7 +28,10 @@ function App() {
           setUser(res.data.user);
           setTheme(res.data.user.preferredTheme || 'Adventure');
         })
-        .catch(() => localStorage.removeItem('token'));
+        .catch((err) => {
+          console.error('Verify token error:', err);
+          localStorage.removeItem('token');
+        });
     }
   }, []);
 

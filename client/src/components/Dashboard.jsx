@@ -85,6 +85,7 @@ function Dashboard({ user, theme, setTheme }) {
       user.preferredTheme = res.data.user.preferredTheme;
       setTheme(res.data.user.preferredTheme);
     } catch (err) {
+      console.error('Update preferences error:', err);
       setError('Failed to update preferences. Try again.');
     }
   };
@@ -99,6 +100,7 @@ function Dashboard({ user, theme, setTheme }) {
       setError('');
       alert('Puzzles reset! You can now play new puzzles.');
     } catch (err) {
+      console.error('Reset puzzles error:', err);
       setError('Failed to reset puzzles. Try again.');
     }
   };
@@ -117,7 +119,7 @@ function Dashboard({ user, theme, setTheme }) {
 
   const handleShareAchievement = (achievement) => {
     const shareText = `I just earned the "${achievement}" badge on STEMZap! 🚀 Join me and test your skills! #STEMZap #Learning`;
-    const url = 'https://stemzap.com'; // Replace with actual app URL
+    const url = 'https://algebra-adventure.vercel.app';
     if (navigator.share) {
       navigator.share({
         title: 'STEMZap Achievement',
