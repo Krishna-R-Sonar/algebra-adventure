@@ -11,7 +11,7 @@ import Tutor from './components/Tutor';
 import axios from 'axios';
 
 // Use the Render server URL for production
-const API_BASE_URL = 'https://algebra-adventure.onrender.com';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://algebra-adventure.onrender.com';
 
 function App() {
   const [user, setUser] = useState(null);
