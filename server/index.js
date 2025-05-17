@@ -10,7 +10,22 @@ require('dotenv').config();
 
 const app = express();
 
-app.use(cors({ origin: 'https://algebra-adventure.vercel.app',  credentials: true}));
+// CORS configuration for multiple origins
+const allowedOrigins = [
+  'https://algebra-adventure.vercel.app',
+  'http://localhost:5173', // For local development with Vite
+];
+
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+}));
 app.use(express.json());
 
 // Health check endpoint
@@ -969,8 +984,9 @@ const startServer = async () => {
     // Seed puzzles after connecting
     await seedPuzzles();
 
-    app.listen(process.env.PORT || 5000, () => {
-      console.log(`Server running on port ${process.env.PORT || 5000}`);
+    const port = process.env.PORT || 5000;
+    app.listen(port, () => {
+      console.log(`Server running on port ${port}`);
     });
   } catch (err) {
     console.error('Failed to start server:', err.message, err.stack);

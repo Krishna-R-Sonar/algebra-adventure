@@ -11,13 +11,14 @@ import Tutor from './components/Tutor';
 import axios from 'axios';
 
 // Use the Render server URL for production
-const API_BASE_URL = process.env.VITE_API_URL || 'https://algebra-adventure.onrender.com';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://algebra-adventure.onrender.com';
 
 function App() {
   const [user, setUser] = useState(null);
   const [theme, setTheme] = useState('Adventure'); // Default theme
 
   useEffect(() => {
+    console.log('API_BASE_URL:', API_BASE_URL); // Debug API URL
     const token = localStorage.getItem('token');
     if (token) {
       axios
@@ -29,11 +30,24 @@ function App() {
           setTheme(res.data.user.preferredTheme || 'Adventure');
         })
         .catch((err) => {
-          console.error('Verify token error:', err);
+          console.error('Verify token error:', err.response?.data?.message || err.message);
           localStorage.removeItem('token');
         });
     }
   }, []);
+
+  // Apply theme to the body with a fallback
+  useEffect(() => {
+    document.body.className = `theme-${theme.toLowerCase()}`;
+    // Apply fallback styles for buttons and cards if no theme is loaded
+    if (!theme) {
+      document.body.style.setProperty('--btn-bg', '#6366f1');
+      document.body.style.setProperty('--btn-hover-bg', '#4f46e5');
+      document.body.style.setProperty('--card-bg', '#2d3748');
+      document.body.style.setProperty('--card-border', '#10b981');
+      document.body.style.setProperty('--heading-color', '#e2e8f0');
+    }
+  }, [theme]);
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -42,11 +56,6 @@ function App() {
     setTheme('Adventure');
   };
 
-  // Apply theme to the body
-  useEffect(() => {
-    document.body.className = `theme-${theme.toLowerCase()}`;
-  }, [theme]);
-
   return (
     <Router>
       <div className={`min-h-screen theme-${theme.toLowerCase()}`}>
@@ -54,11 +63,11 @@ function App() {
         <Routes>
           <Route path="/" element={user ? <Navigate to="/dashboard" /> : <Navigate to="/login" />} />
           <Route path="/login" element={user ? <Navigate to="/dashboard" /> : <Login setUser={setUser} />} />
-          <Route path="/signup" element={user ? <Navigate to="/dashboard" /> : <Signup setUser={setUser} setTheme={setTheme} />} />
-          <Route path="/game" element={user ? <Game user={user} theme={theme} /> : <Navigate to="/login" />} />
+          <Route path="/signup" element={user ? <Navigate to="/dashboard" /> : <Signup setUser={setUser} />} />
           <Route path="/dashboard" element={user ? <Dashboard user={user} theme={theme} setTheme={setTheme} /> : <Navigate to="/login" />} />
-          <Route path="/leaderboard" element={user ? <Leaderboard theme={theme} /> : <Navigate to="/login" />} />
-          <Route path="/tutor" element={user ? <Tutor theme={theme} /> : <Navigate to="/login" />} />
+          <Route path="/game" element={user ? <Game user={user} theme={theme} /> : <Navigate to="/login" />} />
+          <Route path="/leaderboard" element={user ? <Leaderboard /> : <Navigate to="/login" />} />
+          <Route path="/tutor" element={user ? <Tutor /> : <Navigate to="/login" />} />
         </Routes>
       </div>
     </Router>

@@ -127,7 +127,6 @@ function Dashboard({ user, theme, setTheme }) {
         url,
       }).catch((err) => console.error('Share error:', err));
     } else {
-      // Fallback: Copy to clipboard
       navigator.clipboard.writeText(`${shareText} ${url}`)
         .then(() => alert('Achievement copied to clipboard! Share it with your friends.'))
         .catch((err) => console.error('Clipboard error:', err));
@@ -151,15 +150,15 @@ function Dashboard({ user, theme, setTheme }) {
         {
           label: 'Correct Answers',
           data: correctData,
-          backgroundColor: 'rgba(16, 185, 129, 0.6)',
-          borderColor: 'rgba(16, 185, 129, 1)',
+          backgroundColor: theme === 'Adventure' ? 'rgba(245, 158, 11, 0.6)' : theme === 'Space' ? 'rgba(59, 130, 246, 0.6)' : 'rgba(2, 132, 199, 0.6)',
+          borderColor: theme === 'Adventure' ? 'rgba(245, 158, 11, 1)' : theme === 'Space' ? 'rgba(59, 130, 246, 1)' : 'rgba(2, 132, 199, 1)',
           borderWidth: 1,
         },
         {
           label: 'Total Attempts',
           data: totalData,
-          backgroundColor: 'rgba(99, 102, 241, 0.6)',
-          borderColor: 'rgba(99, 102, 241, 1)',
+          backgroundColor: theme === 'Adventure' ? 'rgba(180, 83, 9, 0.6)' : theme === 'Space' ? 'rgba(75, 85, 99, 0.6)' : 'rgba(7, 89, 133, 0.6)',
+          borderColor: theme === 'Adventure' ? 'rgba(180, 83, 9, 1)' : theme === 'Space' ? 'rgba(75, 85, 99, 1)' : 'rgba(7, 89, 133, 1)',
           borderWidth: 1,
         },
       ],
@@ -195,7 +194,11 @@ function Dashboard({ user, theme, setTheme }) {
 
       {/* Motivational Message */}
       <motion.div
-        className="bg-gradient-to-r from-indigo-500 to-emerald-500 p-4 rounded-lg mb-6"
+        className={`p-4 rounded-lg mb-6 ${
+          theme === 'Adventure' ? 'bg-gradient-to-r from-amber-600 to-amber-800' :
+          theme === 'Space' ? 'bg-gradient-to-r from-blue-600 to-indigo-800' :
+          'bg-gradient-to-r from-cyan-600 to-blue-800'
+        }`}
         initial={{ scale: 0.9 }}
         animate={{ scale: 1 }}
         transition={{ duration: 0.3 }}
@@ -205,7 +208,7 @@ function Dashboard({ user, theme, setTheme }) {
 
       {/* Progress Section */}
       <motion.div
-        className="bg-gray-800 p-6 rounded-lg shadow-lg mb-6"
+        className="card bg-gray-800 p-6 rounded-lg shadow-lg mb-6"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.2 }}
@@ -228,7 +231,11 @@ function Dashboard({ user, theme, setTheme }) {
               <button
                 key={index}
                 onClick={() => handleShareAchievement(badge)}
-                className="btn bg-indigo-600 text-white mr-2 mt-2"
+                className={`btn text-white mr-2 mt-2 ${
+                  theme === 'Adventure' ? 'bg-amber-600 hover:bg-amber-700' :
+                  theme === 'Space' ? 'bg-blue-600 hover:bg-blue-700' :
+                  'bg-cyan-600 hover:bg-cyan-700'
+                }`}
               >
                 Share {badge}
               </button>
@@ -240,7 +247,7 @@ function Dashboard({ user, theme, setTheme }) {
       {/* Performance Chart */}
       {Object.keys(performance).length > 0 && (
         <motion.div
-          className="bg-gray-800 p-6 rounded-lg shadow-lg mb-6"
+          className="card bg-gray-800 p-6 rounded-lg shadow-lg mb-6"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4 }}
@@ -252,7 +259,7 @@ function Dashboard({ user, theme, setTheme }) {
 
       {/* Leaderboard */}
       <motion.div
-        className="bg-gray-800 p-6 rounded-lg shadow-lg mb-6"
+        className="card bg-gray-800 p-6 rounded-lg shadow-lg mb-6"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.6 }}
@@ -273,7 +280,7 @@ function Dashboard({ user, theme, setTheme }) {
 
       {/* Preferences Form */}
       <motion.div
-        className="bg-gray-800 p-6 rounded-lg shadow-lg"
+        className="card bg-gray-800 p-6 rounded-lg shadow-lg"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.8 }}
@@ -316,7 +323,7 @@ function Dashboard({ user, theme, setTheme }) {
             <option value="Underwater">Underwater</option>
           </select>
         </div>
-        <button onClick={handlePreferencesChange} className="btn bg-emerald-600 text-white">
+        <button onClick={handlePreferencesChange} className="btn text-white">
           Update Preferences
         </button>
         <button onClick={handleResetPuzzles} className="btn bg-red-600 text-white ml-4">

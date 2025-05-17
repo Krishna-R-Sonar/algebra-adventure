@@ -58,6 +58,7 @@
 
 .card {
   padding: 1.5em;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 /* Responsive padding for .card */
@@ -81,26 +82,111 @@
   color: #888;
 }
 
-/* Additional styles for STEMZap */
+/* Theme-specific styles */
 body {
   color: #e2e8f0;
   font-family: 'Courier New', Courier, monospace;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Theme styles */
+/* Adventure Theme */
 body.theme-adventure {
   background-color: #1a202c;
 }
 
+body.theme-adventure .btn {
+  background-color: #d97706; /* Amber for adventure */
+  border-color: #b45309;
+  color: #ffffff;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+body.theme-adventure .btn:hover {
+  background-color: #b45309;
+  transform: scale(1.05) rotate(2deg); /* Slight rotation for adventure feel */
+}
+
+body.theme-adventure .card {
+  background-color: #2d3748; /* Darker gray for adventure */
+  border-color: #d97706;
+}
+
+body.theme-adventure h1,
+body.theme-adventure h2,
+body.theme-adventure h3 {
+  color: #f59e0b; /* Bright amber for headings */
+}
+
+body.theme-adventure .text-emerald-400 {
+  color: #34d399; /* Keep emerald for highlights */
+}
+
+/* Space Theme */
 body.theme-space {
   background: linear-gradient(135deg, #0d1b2a 0%, #1b263b 100%);
   background-attachment: fixed;
 }
 
+body.theme-space .btn {
+  background-color: #6b7280; /* Cool gray for space */
+  border-color: #4b5563;
+  color: #e5e7eb;
+  transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+body.theme-space .btn:hover {
+  background-color: #4b5563;
+  transform: scale(1.05);
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.5); /* Glowing effect for space */
+}
+
+body.theme-space .card {
+  background: linear-gradient(135deg, #1f2937 0%, #374151 100%); /* Space gradient */
+  border-color: #3b82f6; /* Blue border */
+}
+
+body.theme-space h1,
+body.theme-space h2,
+body.theme-space h3 {
+  color: #93c5fd; /* Light blue for headings */
+}
+
+body.theme-space .text-emerald-400 {
+  color: #60a5fa; /* Blue highlight for space */
+}
+
+/* Underwater Theme */
 body.theme-underwater {
   background: linear-gradient(135deg, #0a3d62 0%, #3e92cc 100%);
   background-attachment: fixed;
+}
+
+body.theme-underwater .btn {
+  background-color: #0284c7; /* Ocean blue */
+  border-color: #075985;
+  color: #ffffff;
+  transition: transform 0.3s ease, background-color 0.3s ease, opacity 0.3s ease;
+}
+
+body.theme-underwater .btn:hover {
+  background-color: #075985;
+  transform: scale(1.05) translateY(-2px); /* Floaty effect for underwater */
+  opacity: 0.9;
+}
+
+body.theme-underwater .card {
+  background-color: #164e63; /* Deep teal */
+  border-color: #38bdf8;
+}
+
+body.theme-underwater h1,
+body.theme-underwater h2,
+body.theme-underwater h3 {
+  color: #7dd3fc; /* Light sky blue */
+}
+
+body.theme-underwater .text-emerald-400 {
+  color: #38bdf8; /* Bright blue highlight */
 }
 
 .btn {
@@ -126,10 +212,6 @@ body.theme-underwater {
   .btn {
     font-size: 1.25rem;
   }
-}
-
-.btn:hover {
-  transform: translateY(-2px);
 }
 
 .input {
@@ -196,6 +278,7 @@ h2,
 h3 {
   line-height: 1.2;
   margin-bottom: 0.5rem;
+  transition: color 0.3s ease;
 }
 
 @media (min-width: 640px) {
@@ -224,22 +307,35 @@ li {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: linear-gradient(135deg, #10b981, #059669);
-  color: white;
   padding: 2rem;
   border-radius: 1rem;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
   z-index: 1000;
   text-align: center;
-  animation: confetti 1s ease-in-out;
 }
 
-@keyframes confetti {
-  0% { background: linear-gradient(135deg, #10b981, #059669); }
-  25% { background: linear-gradient(135deg, #ff6b6b, #feca57); }
-  50% { background: linear-gradient(135deg, #48dbfb, #1dd1a1); }
-  75% { background: linear-gradient(135deg, #ff9ff3, #feca57); }
-  100% { background: linear-gradient(135deg, #10b981, #059669); }
+body.theme-adventure .achievement-popup {
+  background: linear-gradient(135deg, #d97706, #b45309);
+}
+
+body.theme-space .achievement-popup {
+  background: linear-gradient(135deg, #3b82f6, #1e40af);
+  animation: space-glow 2s ease-in-out infinite;
+}
+
+body.theme-underwater .achievement-popup {
+  background: linear-gradient(135deg, #0284c7, #075985);
+  animation: bubble-float 1.5s ease-in-out infinite;
+}
+
+@keyframes space-glow {
+  0%, 100% { box-shadow: 0 0 10px rgba(59, 130, 246, 0.5); }
+  50% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.8); }
+}
+
+@keyframes bubble-float {
+  0%, 100% { transform: translate(-50%, -50%) translateY(0); }
+  50% { transform: translate(-50%, -50%) translateY(-10px); }
 }
 
 .achievement-popup h3 {

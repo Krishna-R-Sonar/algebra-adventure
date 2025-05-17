@@ -25,12 +25,13 @@ function Signup({ setUser }) {
         preferredCodingLanguage,
         educationLevel,
       });
+      console.log('Signup response:', res.status, res.data); // Debug response
       localStorage.setItem('token', res.data.token);
       setUser(res.data.user);
       navigate('/dashboard');
     } catch (err) {
-      console.error('Signup error:', err);
-      setError(err.response?.data?.message || 'Signup failed. Please try again.');
+      console.error('Signup error:', err.response?.status, err.response?.data?.message || err.message);
+      setError(err.response?.data?.message || 'Signup failed. Please check your network and try again.');
     }
   }, [username, email, password, preferredCodingLanguage, educationLevel, navigate, setUser]);
 
